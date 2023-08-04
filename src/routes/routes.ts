@@ -1,5 +1,5 @@
-import Players from '../components/page/players/Players.tsx';
 import { FunctionComponent } from 'react';
+import Teams from '../components/page/teams/Teams.tsx';
 
 type Route = {
   id: string;
@@ -9,8 +9,8 @@ type Route = {
 
 export const routes: Route[] = [
   {
-    id: 'home',
+    id: 'teams',
     path: '/',
-    Element: Players,
+    Element: Teams,
   },
 ];
