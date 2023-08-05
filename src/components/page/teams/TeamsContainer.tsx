@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect } from 'react';
 import Teams from './Teams.tsx';
 import { Team } from '../../../models/Team.ts';
 import { uniqueNamesGenerator } from 'unique-names-generator';
@@ -6,9 +6,12 @@ import { adjectives, pokemons } from '../../../util/custom-dicc.ts';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { TeamType } from '../../../models/forms/TeamType.tsx';
+import { PointsContext } from '../../../context/PointsContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const TeamsContainer: FunctionComponent = () => {
-  const [playersSize, setPlayersSize] = useState<number>(2);
+  const { playersSize, setPlayersSize, teams, setTeams } = useContext(PointsContext);
+  const navigate = useNavigate();
 
   const validations = yup.object({
     team1: yup.string().required('Campo obligatorio'),
@@ -24,11 +27,14 @@ const TeamsContainer: FunctionComponent = () => {
     },
     validationSchema: validations,
     onSubmit: (values) => {
-      console.log(JSON.stringify(values));
+      let newTeams: Team[] = [{ name: values.team1 }, { name: values.team2 }];
+      if (playersSize > 2) {
+        newTeams = [...newTeams, { name: values.team3 }];
+      }
+      setTeams(newTeams);
+      navigate('/points');
     },
   });
-
-  const [teams, setTeams] = useState<Team[]>([]);
 
   const resetPlayersSize = (newSize: number) => {
     if (playersSize !== newSize) {
