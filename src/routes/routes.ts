@@ -1,16 +1,16 @@
 import { FunctionComponent } from 'react';
-import Teams from '../components/page/teams/Teams.tsx';
+import TeamsContainer from '../components/page/teams/TeamsContainer.tsx';
 
 type Route = {
   id: string;
   path: string;
-  Element: FunctionComponent;
+  Element: FunctionComponent<any>;
 };
 
 export const routes: Route[] = [
   {
     id: 'teams',
     path: '/',
-    Element: Teams,
+    Element: TeamsContainer,
   },
 ];
