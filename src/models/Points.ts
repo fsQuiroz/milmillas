@@ -1,5 +1,7 @@
 export type Points = { [key: string]: Point };
 
+export type TotalPoints = { [key: string]: number };
+
 export type Point = {
   fullTrip: number;
   traveled: number;

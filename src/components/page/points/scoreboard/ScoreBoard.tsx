@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Team } from '../../../../models/Team.ts';
-import { Points } from '../../../../models/Points.ts';
+import { Points, TotalPoints } from '../../../../models/Points.ts';
 import {
   Box,
   Paper,
@@ -19,25 +19,10 @@ type Props = {
   playersSize: number;
   teams: Team[];
   points: Points;
+  totals: TotalPoints;
 };
 
-type TotalPoints = { [key: string]: number };
-
-const ScoreBoard: FunctionComponent<Props> = ({ playersSize, teams, points }) => {
-  const totals: TotalPoints = {};
-  teams.forEach((t) => {
-    const p = points[t.name];
-    totals[t.name] =
-      p.fullTrip +
-      p.traveled +
-      p.tk +
-      p.securities +
-      p.fullSecurities +
-      p.noOverSpeed +
-      p.blocked +
-      p.overTime +
-      p.extraMile;
-  });
+const ScoreBoard: FunctionComponent<Props> = ({ playersSize, teams, points, totals }) => {
   return (
     <Paper elevation={2} sx={{ p: 1 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
