@@ -22,7 +22,7 @@ const Points: FunctionComponent = () => {
   useEffect(() => {}, []);
 
   return (
-    <Container maxWidth="md" sx={{ mt: 7 }}>
+    <Container maxWidth="md" sx={{ mt: { xs: 4, sm: 7 } }}>
       {teams?.length > 1 && Object.keys(points).length > 1 && (
         <>
           {!endGame && <RoundPointsContainer teams={teams} />}
