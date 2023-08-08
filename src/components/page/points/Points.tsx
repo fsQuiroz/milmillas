@@ -20,7 +20,7 @@ const Points: FunctionComponent = () => {
   }, [navigate, teams]);
 
   return (
-    <Container maxWidth="md" sx={{ mt: { xs: 4, sm: 7 } }}>
+    <Container maxWidth="md" sx={{ mt: { xs: 9, sm: 12 } }}>
       {teams?.length > 1 && Object.keys(points).length > 1 && (
         <>
           {!endGame && <RoundPointsContainer teams={teams} />}

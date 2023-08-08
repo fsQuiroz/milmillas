@@ -14,7 +14,7 @@ interface Props {
 
 const Teams: FunctionComponent<Props> = ({ playersSize, teams, formik, resetPlayersSize, generateNames }) => {
   return (
-    <Container maxWidth="md" sx={{ mt: { xs: 4, sm: 7 } }}>
+    <Container maxWidth="md" sx={{ mt: { xs: 9, sm: 12 } }}>
       <Paper elevation={2} sx={{ p: 1 }}>
         <Box sx={{ pt: 1, pb: 2 }}>
           <Typography variant="h5">Registrar equipos</Typography>
