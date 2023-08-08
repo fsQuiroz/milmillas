@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Paper, Theme, Typography } from '@mui/material';
-import { TotalPoints } from '../../../../models/Points.ts';
+import { RankedPoints } from '../../../../models/Points.ts';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import DangerousIcon from '@mui/icons-material/Dangerous';
@@ -8,16 +8,12 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import * as Formatter from '../../../../util/formatters.ts';
 
 type Props = {
-  totals: TotalPoints;
+  endGame: boolean;
+  points: RankedPoints[];
 };
 
 type RankedIconProps = {
   position: number;
-};
-
-type RankedPoints = {
-  teamName: string;
-  totalPoints: number;
 };
 
 const RankedIcon: FunctionComponent<RankedIconProps> = ({ position }) => {
@@ -46,17 +42,7 @@ const colorDecider = (position: number, theme: Theme): string => {
   }
 };
 
-const LeaderBoard: FunctionComponent<Props> = ({ totals }) => {
-  const points: RankedPoints[] = Object.keys(totals)
-    .map((team) => {
-      return { teamName: team, totalPoints: totals[team] };
-    })
-    .sort((a, b) => {
-      return a.totalPoints === b.totalPoints ? a.teamName.localeCompare(b.teamName) : b.totalPoints - a.totalPoints;
-    });
-  const endGame = points.some((p) => {
-    return p.totalPoints >= 5000;
-  });
+const LeaderBoard: FunctionComponent<Props> = ({ endGame, points }) => {
   return (
     <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>

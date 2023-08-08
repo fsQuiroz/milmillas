@@ -4,7 +4,7 @@ import { PointsContext } from '../../../context/PointsContext.tsx';
 import { useNavigate } from 'react-router-dom';
 import ScoreBoard from './scoreboard/ScoreBoard.tsx';
 import RoundPointsContainer from './roundpoints/RoundPointsContainer.tsx';
-import LeaderBoard from './leaderboard/LeaderBoard.tsx';
+import LeaderBoardContainer from './leaderboard/LeaderBoardContainer.tsx';
 
 const Points: FunctionComponent = () => {
   const navigate = useNavigate();
@@ -19,14 +19,12 @@ const Points: FunctionComponent = () => {
     }
   }, [navigate, teams]);
 
-  useEffect(() => {}, []);
-
   return (
     <Container maxWidth="md" sx={{ mt: { xs: 4, sm: 7 } }}>
       {teams?.length > 1 && Object.keys(points).length > 1 && (
         <>
           {!endGame && <RoundPointsContainer teams={teams} />}
-          <LeaderBoard totals={totals} />
+          <LeaderBoardContainer totals={totals} />
           <ScoreBoard playersSize={playersSize} teams={teams} points={points} totals={totals} />
         </>
       )}

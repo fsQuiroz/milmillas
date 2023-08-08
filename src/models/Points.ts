@@ -13,3 +13,8 @@ export type Point = {
   overTime: number;
   extraMile: number;
 };
+
+export type RankedPoints = {
+  teamName: string;
+  totalPoints: number;
+};
