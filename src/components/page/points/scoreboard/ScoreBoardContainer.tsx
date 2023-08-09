@@ -1,12 +1,12 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, HTMLAttributes, useEffect, useState } from 'react';
 import { Team } from '../../../../models/Team.ts';
 import { Points, TotalPoints } from '../../../../models/Points.ts';
 import ScoreBoard from './ScoreBoard.tsx';
 
-type Props = {
+interface Props extends HTMLAttributes<unknown> {
   teams: Team[];
   points: Points[];
-};
+}
 
 const ScoreBoardContainer: FunctionComponent<Props> = ({ teams, points }) => {
   const [selectedPoints, setSelectedPoints] = useState(0);

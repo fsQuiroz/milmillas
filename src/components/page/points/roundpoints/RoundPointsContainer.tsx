@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, FunctionComponent, SyntheticEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent, useContext, useState } from 'react';
 import { Point, Points } from '../../../../models/Points.ts';
 import RoundPoints from './RoundPoints.tsx';
 import { Team } from '../../../../models/Team.ts';
@@ -7,9 +7,9 @@ import { FormikProps, useFormik } from 'formik';
 import { PointsType } from '../../../../models/forms/PointsType.ts';
 import { PointsContext } from '../../../../context/PointsContext.tsx';
 
-type Props = {
+interface Props extends HTMLAttributes<unknown> {
   teams: Team[];
-};
+}
 
 const initValues: PointsType = {
   fullTrip: false,

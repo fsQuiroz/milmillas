@@ -1,12 +1,12 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, HTMLAttributes } from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
 import CachedIcon from '@mui/icons-material/Cached';
 
-type Props = {
+interface Props extends HTMLAttributes<unknown> {
   currentPath: string;
   reset: () => void;
-};
+}
 
 const NavBar: FunctionComponent<Props> = ({ currentPath, reset }) => {
   return (

@@ -1,10 +1,10 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, HTMLAttributes } from 'react';
 import { RankedPoints, TotalPoints } from '../../../../models/Points.ts';
 import LeaderBoard from './LeaderBoard.tsx';
 
-type Props = {
+interface Props extends HTMLAttributes<unknown> {
   totals: TotalPoints;
-};
+}
 
 const LeaderBoardContainer: FunctionComponent<Props> = ({ totals }) => {
   const points: RankedPoints[] = Object.keys(totals)

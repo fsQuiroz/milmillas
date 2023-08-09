@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, HTMLAttributes } from 'react';
 import { Team } from '../../../../models/Team.ts';
 import { Points, TotalPoints } from '../../../../models/Points.ts';
 import {
@@ -20,14 +20,14 @@ import {
 } from '@mui/material';
 import * as Formatter from '../../../../util/formatters.ts';
 
-type Props = {
+interface Props extends HTMLAttributes<unknown> {
   selectedPoints: number;
   teams: Team[];
   points: Points[];
   totals: TotalPoints;
   previous: () => void;
   next: () => void;
-};
+}
 
 const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, totals, previous, next }) => {
   return (

@@ -6,7 +6,9 @@ import { PointsContextProvider } from './context/PointsContext.tsx';
 const App: FunctionComponent = () => {
   return (
     <BrowserRouter>
-      <PointsContextProvider child={<AppRouter />} />
+      <PointsContextProvider>
+        <AppRouter />
+      </PointsContextProvider>
     </BrowserRouter>
   );
 };

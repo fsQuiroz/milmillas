@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, FunctionComponent, SyntheticEvent } from 'react';
+import { ChangeEvent, FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent } from 'react';
 import {
   Box,
   Button,
@@ -25,7 +25,7 @@ import { Points } from '../../../../models/Points.ts';
 import { FormikProps } from 'formik';
 import { PointsType } from '../../../../models/forms/PointsType.ts';
 
-type Props = {
+interface Props extends HTMLAttributes<unknown> {
   teams: Team[];
   points: Points;
   activeTeam: number;
@@ -35,7 +35,7 @@ type Props = {
   handleSecurities: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
   handleReset: (event: FormEvent<HTMLFormElement>) => void;
   goBack: () => void;
-};
+}
 
 const RoundPoints: FunctionComponent<Props> = ({
   teams,
