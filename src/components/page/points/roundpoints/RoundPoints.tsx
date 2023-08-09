@@ -27,7 +27,7 @@ type Props = {
   points: Points;
   activeTeam: number;
   formik: FormikProps<PointsType>;
-  handleReset: (_event: FormEvent<HTMLFormElement>) => void;
+  handleReset: (event: FormEvent<HTMLFormElement>) => void;
   goBack: () => void;
 };
 

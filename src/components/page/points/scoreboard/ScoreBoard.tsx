@@ -3,7 +3,12 @@ import { Team } from '../../../../models/Team.ts';
 import { Points, TotalPoints } from '../../../../models/Points.ts';
 import {
   Box,
+  Button,
+  Grid,
   Paper,
+  Step,
+  StepLabel,
+  Stepper,
   Table,
   TableBody,
   TableCell,
@@ -16,13 +21,15 @@ import {
 import * as Formatter from '../../../../util/formatters.ts';
 
 type Props = {
-  playersSize: number;
+  selectedPoints: number;
   teams: Team[];
-  points: Points;
+  points: Points[];
   totals: TotalPoints;
+  previous: () => void;
+  next: () => void;
 };
 
-const ScoreBoard: FunctionComponent<Props> = ({ playersSize, teams, points, totals }) => {
+const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, totals, previous, next }) => {
   return (
     <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
@@ -30,87 +37,134 @@ const ScoreBoard: FunctionComponent<Props> = ({ playersSize, teams, points, tota
           Puntaje de Partidas
         </Typography>
       </Box>
+      {points.length > 1 && (
+        <>
+          <Box sx={{ px: { sm: 2, md: 4 }, mt: 2 }}>
+            <Stepper activeStep={selectedPoints}>
+              {points.map((_, idx) => {
+                let stepProps: {} = { completed: false };
+                if (idx === selectedPoints) {
+                  stepProps = { ...stepProps, active: true };
+                }
+                return (
+                  <Step key={idx} {...stepProps}>
+                    <StepLabel>{`Partida ${idx + 1}`}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+          </Box>
+          <Box sx={{ px: { sm: 2, md: 4 }, mt: 3, mb: 4 }}>
+            <Grid container>
+              <Grid item container m="auto" justifySelf="start">
+                <Box sx={{ m: 'auto' }} />
+                <Button
+                  type="button"
+                  variant="contained"
+                  sx={{ mr: 1 }}
+                  onClick={previous}
+                  disabled={selectedPoints === 0}>
+                  Anterior
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  onClick={next}
+                  disabled={selectedPoints + 1 === points.length}>
+                  Siguiente
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </>
+      )}
       <Box>
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
-                <TableCell align="right">{teams[0].name}</TableCell>
-                <TableCell align="right">{teams[1].name}</TableCell>
-                {playersSize > 2 && <TableCell align="right">{teams[2].name}</TableCell>}
+                {teams.map((team) => {
+                  return <TableCell align="right">{team.name}</TableCell>;
+                })}
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell>Viaje completo</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].fullTrip)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].fullTrip)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].fullTrip)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].fullTrip)}</TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Recorrido</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].traveled)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].traveled)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].traveled)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].traveled)}</TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>TK</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].tk)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].tk)}</TableCell>
-                {playersSize > 2 && <TableCell align="right">{Formatter.number(points[teams[2].name].tk)}</TableCell>}
+                {teams.map((team) => {
+                  return <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].tk)}</TableCell>;
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Seguridades I</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].securities)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].securities)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].securities)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">
+                      {Formatter.number(points[selectedPoints][team.name].securities)}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Seguridades II</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].fullSecurities)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].fullSecurities)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].fullSecurities)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">
+                      {Formatter.number(points[selectedPoints][team.name].fullSecurities)}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Viaje Seguro</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].noOverSpeed)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].noOverSpeed)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].noOverSpeed)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">
+                      {Formatter.number(points[selectedPoints][team.name].noOverSpeed)}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Bloqueo</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].blocked)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].blocked)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].blocked)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].blocked)}</TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Acción Demorada</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].overTime)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].overTime)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].overTime)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].overTime)}</TableCell>
+                  );
+                })}
               </TableRow>
               <TableRow>
                 <TableCell>Alargue</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[0].name].extraMile)}</TableCell>
-                <TableCell align="right">{Formatter.number(points[teams[1].name].extraMile)}</TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">{Formatter.number(points[teams[2].name].extraMile)}</TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].extraMile)}</TableCell>
+                  );
+                })}
               </TableRow>
             </TableBody>
             <TableFooter>
@@ -120,23 +174,15 @@ const ScoreBoard: FunctionComponent<Props> = ({ playersSize, teams, points, tota
                     Total
                   </Typography>
                 </TableCell>
-                <TableCell align="right">
-                  <Typography component="strong" color="text.primary">
-                    {Formatter.number(totals[teams[0].name])}
-                  </Typography>
-                </TableCell>
-                <TableCell align="right">
-                  <Typography component="strong" color="text.primary">
-                    {Formatter.number(totals[teams[1].name])}
-                  </Typography>
-                </TableCell>
-                {playersSize > 2 && (
-                  <TableCell align="right">
-                    <Typography component="strong" color="text.primary">
-                      {Formatter.number(totals[teams[2].name])}
-                    </Typography>
-                  </TableCell>
-                )}
+                {teams.map((team) => {
+                  return (
+                    <TableCell align="right">
+                      <Typography component="strong" color="text.primary">
+                        {Formatter.number(totals[team.name])}
+                      </Typography>
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             </TableFooter>
           </Table>

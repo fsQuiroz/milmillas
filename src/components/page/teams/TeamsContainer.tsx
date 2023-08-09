@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import Teams from './Teams.tsx';
 import { Team } from '../../../models/Team.ts';
 import { uniqueNamesGenerator } from 'unique-names-generator';
@@ -10,7 +10,8 @@ import { PointsContext } from '../../../context/PointsContext.tsx';
 import { useNavigate } from 'react-router-dom';
 
 const TeamsContainer: FunctionComponent = () => {
-  const { playersSize, setPlayersSize, teams, setTeams } = useContext(PointsContext);
+  const [playersSize, setPlayersSize] = useState<number>(2);
+  const { teams, setTeams } = useContext(PointsContext);
   const navigate = useNavigate();
 
   const validations = yup.object({
