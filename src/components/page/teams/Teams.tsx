@@ -14,10 +14,12 @@ interface Props {
 
 const Teams: FunctionComponent<Props> = ({ playersSize, teams, formik, resetPlayersSize, generateNames }) => {
   return (
-    <Container maxWidth="md" sx={{ mt: { xs: 9, sm: 12 } }}>
+    <Container maxWidth="md" sx={{ mt: { xs: 9, sm: 12 }, mb: 2 }}>
       <Paper elevation={2} sx={{ p: 1 }}>
         <Box sx={{ pt: 1, pb: 2 }}>
-          <Typography variant="h5">Registrar equipos</Typography>
+          <Typography variant="h5" align="center">
+            Registrar equipos
+          </Typography>
         </Box>
         {teams.length > 0 && (
           <Box sx={{ pt: 1, pb: 2 }} component="form" onSubmit={formik.handleSubmit}>

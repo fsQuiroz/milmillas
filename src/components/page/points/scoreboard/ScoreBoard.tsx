@@ -24,9 +24,11 @@ type Props = {
 
 const ScoreBoard: FunctionComponent<Props> = ({ playersSize, teams, points, totals }) => {
   return (
-    <Paper elevation={2} sx={{ p: 1 }}>
+    <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
-        <Typography variant="h5">Puntaje</Typography>
+        <Typography variant="h5" align="center">
+          Puntaje de Partidas
+        </Typography>
       </Box>
       <Box>
         <TableContainer>

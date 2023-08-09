@@ -46,7 +46,9 @@ const LeaderBoard: FunctionComponent<Props> = ({ endGame, points }) => {
   return (
     <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
-        <Typography variant="h5">Puntaje</Typography>
+        <Typography variant="h5" align="center">
+          Puntaje
+        </Typography>
       </Box>
       <Box sx={{ px: { xs: 6, sm: 10, md: 16 } }}>
         <List>

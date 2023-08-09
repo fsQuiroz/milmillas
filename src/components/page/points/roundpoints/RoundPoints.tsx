@@ -35,8 +35,12 @@ const RoundPoints: FunctionComponent<Props> = ({ teams, points, activeTeam, form
   return (
     <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
-        <Typography variant="h5">Registro de Puntajes</Typography>
-        <Typography variant={'subtitle1'}>{teams[activeTeam].name}</Typography>
+        <Typography variant="h5" align="center">
+          Registro de Puntajes
+        </Typography>
+        <Typography variant={'subtitle1'} align="center">
+          {teams[activeTeam].name}
+        </Typography>
       </Box>
       <Box sx={{ px: { sm: 2, md: 4 } }}>
         <Stepper activeStep={activeTeam}>
