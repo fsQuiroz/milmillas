@@ -31,7 +31,7 @@ interface Props extends HTMLAttributes<unknown> {
 
 const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, totals, previous, next }) => {
   return (
-    <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
+    <Paper elevation={2} sx={{ px: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
         <Typography variant="h5" align="center">
           Puntaje de Partidas

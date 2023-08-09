@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<unknown> {
 
 const LeaderBoard: FunctionComponent<Props> = ({ endGame, points }) => {
   return (
-    <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
+    <Paper elevation={2} sx={{ px: 2, pb: 2, mb: 2 }}>
       <Box sx={{ pt: 1 }}>
         <Typography variant="h5" align="center">
           Puntaje

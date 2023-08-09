@@ -49,7 +49,7 @@ const RoundPoints: FunctionComponent<Props> = ({
   goBack,
 }) => {
   return (
-    <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
+    <Paper elevation={2} sx={{ px: 2, pb: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
         <Typography variant="h5" align="center">
           Registro de Puntajes
