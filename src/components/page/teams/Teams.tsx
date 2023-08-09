@@ -62,8 +62,8 @@ const Teams: FunctionComponent<Props> = ({ playersSize, teams, formik, resetPlay
               {playersSize === 3 && (
                 <Grid item xs={12} sm={8} m="auto">
                   <TextField
-                    name="team1"
-                    value={formik.values.team1}
+                    name="team3"
+                    value={formik.values.team3}
                     label="Equipo 1"
                     onChange={formik.handleChange}
                     error={formik.touched.team3 && Boolean(formik.errors.team3)}

@@ -15,9 +15,18 @@ const TeamsContainer: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const validations = yup.object({
-    team1: yup.string().required('Campo obligatorio'),
-    team2: yup.string().required('Campo obligatorio'),
-    team3: yup.string().required('Campo obligatorio'),
+    team1: yup
+      .string()
+      .notOneOf([yup.ref('team2'), yup.ref('team3')], 'No se puede repetir el nombre')
+      .required('Campo obligatorio'),
+    team2: yup
+      .string()
+      .notOneOf([yup.ref('team1'), yup.ref('team3')], 'No se puede repetir el nombre')
+      .required('Campo obligatorio'),
+    team3: yup
+      .string()
+      .notOneOf([yup.ref('team1'), yup.ref('team2')], 'No se puede repetir el nombre')
+      .required('Campo obligatorio'),
   });
 
   const formik: FormikProps<TeamType> = useFormik({
@@ -27,6 +36,7 @@ const TeamsContainer: FunctionComponent = () => {
       team3: '',
     },
     validationSchema: validations,
+    validateOnChange: true,
     onSubmit: (values) => {
       let newTeams: Team[] = [{ name: values.team1 }, { name: values.team2 }];
       if (playersSize > 2) {
