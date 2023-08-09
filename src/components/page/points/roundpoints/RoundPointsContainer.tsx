@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent, useContext, useState } from 'react';
+import { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent, useContext, useState } from 'react';
 import { Point, Points } from '../../../../models/Points.ts';
 import RoundPoints from './RoundPoints.tsx';
 import { Team } from '../../../../models/Team.ts';
@@ -73,9 +73,9 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
     formik.setFieldValue('traveled', checked ? 1000 : 0);
   };
 
-  const handleTk = (event: ChangeEvent<HTMLInputElement>, value: string) => {
+  const handleTk = (event: Event, value: number | number[]) => {
     formik.handleChange(event);
-    const newValue = parseInt(value);
+    const newValue = value as number;
     const securities = formik.values.securities;
 
     if (newValue > securities) {
@@ -83,9 +83,9 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
     }
   };
 
-  const handleSecurities = (event: ChangeEvent<HTMLInputElement>, value: string) => {
+  const handleSecurities = (event: Event, value: number | number[]) => {
     formik.handleChange(event);
-    const newValue = parseInt(value);
+    const newValue = value as number;
     const tk = formik.values.tk;
 
     if (newValue < tk) {

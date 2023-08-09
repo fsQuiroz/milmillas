@@ -20,6 +20,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { Mark } from '@mui/base';
 import HelpIcon from '@mui/icons-material/Help';
 import { Team } from '../../../../models/Team.ts';
 import { Points } from '../../../../models/Points.ts';
@@ -43,6 +44,14 @@ const sliderSx: SxProps<Theme> = {
   '& .MuiSlider-rail': { backgroundColor: (theme) => theme.palette.text.disabled },
   '& .MuiSlider-mark': { color: (theme) => theme.palette.text.secondary },
 };
+
+const sliderMarks: Mark[] = [
+  { value: 0, label: '0' },
+  { value: 1, label: '1' },
+  { value: 2, label: '2' },
+  { value: 3, label: '3' },
+  { value: 4, label: '4' },
+];
 
 const RoundPoints: FunctionComponent<Props> = ({
   teams,
@@ -87,9 +96,10 @@ const RoundPoints: FunctionComponent<Props> = ({
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si se llegó a la distancia final de la jugada (1.000 o 700 millas)"
-              disableFocusListener
+              placement="right"
               arrow
-              placement="right">
+              disableFocusListener
+              enterTouchDelay={0}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -106,28 +116,37 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
-            <Tooltip title="Cantidad de millas recorridas en jugada" disableFocusListener arrow placement="right">
-              <IconButton sx={{ mr: 1 }}>
-                <HelpIcon />
-              </IconButton>
-            </Tooltip>
-            <TextField
-              name="traveled"
-              value={formik.values.traveled}
-              type="number"
-              label="Recorrido"
-              onChange={formik.handleChange}
-              error={formik.touched.traveled && Boolean(formik.errors.traveled)}
-            />
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+            <Stack direction="row" alignItems="center" sx={{ mr: 2 }}>
+              <Tooltip
+                title="Cantidad de millas recorridas en jugada"
+                placement="right"
+                arrow
+                disableFocusListener
+                enterTouchDelay={0}>
+                <IconButton sx={{ mr: 1 }}>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+              <TextField
+                fullWidth
+                name="traveled"
+                value={formik.values.traveled}
+                type="number"
+                label="Recorrido"
+                onChange={formik.handleChange}
+                error={formik.touched.traveled && Boolean(formik.errors.traveled)}
+              />
+            </Stack>
           </Grid>
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Stack direction="row" alignItems="center">
               <Tooltip
                 title="Cantidad de TKs en la jugada (Si se usó la Carta de Seguridad correspondiente inmediatamente después de su Carta de Problema)"
-                disableFocusListener
+                placement="right"
                 arrow
-                placement="right">
+                disableFocusListener
+                enterTouchDelay={0}>
                 <IconButton sx={{ mr: 1 }}>
                   <HelpIcon />
                 </IconButton>
@@ -143,20 +162,19 @@ const RoundPoints: FunctionComponent<Props> = ({
                 min={0}
                 max={4}
                 step={1}
-                marks={[
-                  { value: 0, label: '0' },
-                  { value: 1, label: '1' },
-                  { value: 2, label: '2' },
-                  { value: 3, label: '3' },
-                  { value: 4, label: '4' },
-                ]}
+                marks={sliderMarks}
                 onChange={handleTk}
               />
             </Box>
           </Grid>
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Stack direction="row" alignItems="center">
-              <Tooltip title="Cantidad de Cartas de Seguridades de la partida" arrow placement="right">
+              <Tooltip
+                title="Cantidad de Cartas de Seguridades de la partida"
+                placement="right"
+                arrow
+                disableFocusListener
+                enterTouchDelay={0}>
                 <IconButton sx={{ mr: 1 }}>
                   <HelpIcon />
                 </IconButton>
@@ -172,13 +190,7 @@ const RoundPoints: FunctionComponent<Props> = ({
                 min={0}
                 max={4}
                 step={1}
-                marks={[
-                  { value: 0, label: '0' },
-                  { value: 1, label: '1' },
-                  { value: 2, label: '2' },
-                  { value: 3, label: '3' },
-                  { value: 4, label: '4' },
-                ]}
+                marks={sliderMarks}
                 onChange={handleSecurities}
               />
             </Box>
@@ -186,9 +198,10 @@ const RoundPoints: FunctionComponent<Props> = ({
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si en la partida no se usaron Carta de Velocidad de 200"
-              disableFocusListener
+              placement="right"
               arrow
-              placement="right">
+              disableFocusListener
+              enterTouchDelay={0}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -208,9 +221,10 @@ const RoundPoints: FunctionComponent<Props> = ({
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo y otro jugador o equipo no pudo utilizar Carta de Velocidad"
-              disableFocusListener
+              placement="right"
               arrow
-              placement="right">
+              disableFocusListener
+              enterTouchDelay={0}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -230,9 +244,10 @@ const RoundPoints: FunctionComponent<Props> = ({
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo y jugó sin Cartas disponibles en el mazo"
-              disableFocusListener
+              placement="right"
               arrow
-              placement="right">
+              disableFocusListener
+              enterTouchDelay={0}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -252,9 +267,10 @@ const RoundPoints: FunctionComponent<Props> = ({
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si esta partida era a 700 millas pero este jugador o equipo propuso alargar a 1.000 millas y realizó un Viaje completo"
-              disableFocusListener
+              placement="right"
               arrow
-              placement="right">
+              disableFocusListener
+              enterTouchDelay={0}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
