@@ -1,11 +1,11 @@
-import NavBar from './navbar/NavBar.tsx';
-import { Outlet } from 'react-router-dom';
 import { FunctionComponent } from 'react';
+import { Outlet } from 'react-router-dom';
+import NavBarContainer from './navbar/NavBarContainer.tsx';
 
 const Layout: FunctionComponent = () => {
   return (
     <>
-      <NavBar />
+      <NavBarContainer />
       <Outlet />
     </>
   );

@@ -1,6 +1,10 @@
-import { Context, createContext, FunctionComponent, ReactNode, useState } from 'react';
+import { Context, createContext, FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import { Team } from '../models/Team.ts';
 import { Points, TotalPoints } from '../models/Points.ts';
+
+const LS_TEAMS = 'teams';
+const LS_POINTS = 'ponts';
+const LS_TOTALS = 'totals';
 
 type PointsContextValues = {
   teams: Team[];
@@ -20,19 +24,32 @@ const initValues: PointsContextValues = {
 export const PointsContext: Context<PointsContextValues> = createContext<PointsContextValues>(initValues);
 
 export const PointsContextProvider: FunctionComponent<{ child: ReactNode }> = ({ child }) => {
-  const [teams, setTeams] = useState<Team[]>([]);
-  const [points, setPoints] = useState<Points[]>([]);
-  const [totals, setTotals] = useState<TotalPoints>({});
+  const [teams, setTeams] = useState<Team[]>(JSON.parse(localStorage.getItem(LS_TEAMS) || '[]'));
+  const [points, setPoints] = useState<Points[]>(JSON.parse(localStorage.getItem(LS_POINTS) || '[]'));
+  const [totals, setTotals] = useState<TotalPoints>(JSON.parse(localStorage.getItem(LS_TOTALS) || '{}'));
+
+  useEffect(() => {
+    localStorage.setItem(LS_TEAMS, JSON.stringify(teams));
+  }, [teams]);
+
+  useEffect(() => {
+    localStorage.setItem(LS_POINTS, JSON.stringify(points));
+  }, [points]);
+
+  useEffect(() => {
+    localStorage.setItem(LS_TOTALS, JSON.stringify(totals));
+  }, [totals]);
 
   const initTeams = (teams: Team[]) => {
     const newTotals: TotalPoints = {};
     teams.forEach((t) => {
       newTotals[t.name] = 0;
     });
+    setTeams(teams);
     setPoints([]);
     setTotals(newTotals);
-    setTeams(teams);
   };
+
   const updatePoints = (pts: Points) => {
     const newTotals: TotalPoints = {};
     teams.forEach((t) => {

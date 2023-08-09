@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const TeamsContainer: FunctionComponent = () => {
   const [playersSize, setPlayersSize] = useState<number>(2);
-  const { teams, setTeams } = useContext(PointsContext);
+  const { setTeams } = useContext(PointsContext);
   const navigate = useNavigate();
 
   const validations = yup.object({
@@ -79,7 +79,6 @@ const TeamsContainer: FunctionComponent = () => {
   return (
     <Teams
       playersSize={playersSize}
-      teams={teams}
       formik={formik}
       resetPlayersSize={resetPlayersSize}
       generateNames={generateNames}
