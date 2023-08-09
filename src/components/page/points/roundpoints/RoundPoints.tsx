@@ -2,21 +2,24 @@ import { ChangeEvent, FormEvent, FunctionComponent, SyntheticEvent } from 'react
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
   Grid,
+  IconButton,
   Paper,
   Radio,
   RadioGroup,
   Step,
   StepLabel,
   Stepper,
-  Switch,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
+import HelpIcon from '@mui/icons-material/Help';
 import { Team } from '../../../../models/Team.ts';
 import { Points } from '../../../../models/Points.ts';
 import { FormikProps } from 'formik';
@@ -75,30 +78,52 @@ const RoundPoints: FunctionComponent<Props> = ({
       <Box component="form" onSubmit={formik.handleSubmit} onReset={handleReset} sx={{ pt: 2, pb: 1 }}>
         <Grid container spacing={2}>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Marcar si se llegó a la distancia final de la jugada (1.000 o 700 millas)"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.fullTrip && Boolean(formik.errors.fullTrip)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch name="fullTrip" checked={formik.values.fullTrip} />}
+                  control={<Checkbox name="fullTrip" checked={formik.values.fullTrip} sx={{ pl: 0 }} />}
                   onChange={handleFullTrip}
                   label="Viaje completo"
-                  labelPlacement="start"
+                  labelPlacement="end"
                   sx={{ m: 0 }}
                 />
               </FormGroup>
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip title="Cantidad de millas recorridas en jugada" disableFocusListener arrow placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <TextField
               name="traveled"
               value={formik.values.traveled}
               type="number"
               label="Recorrido"
-              fullWidth
               onChange={formik.handleChange}
               error={formik.touched.traveled && Boolean(formik.errors.traveled)}
             />
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Cantidad de TKs en la jugada (Si se usó la Carta de Seguridad correspondiente inmediatamente después de su Carta de Problema)"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.tk && Boolean(formik.errors.tk)}>
               <FormLabel>TKs</FormLabel>
               <RadioGroup row name="tk" value={formik.values.tk} onChange={handleTk}>
@@ -111,6 +136,15 @@ const RoundPoints: FunctionComponent<Props> = ({
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Cantidad de Cartas de Seguridades de la partida"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.securities && Boolean(formik.errors.securities)}>
               <FormLabel>Seguridades I</FormLabel>
               <RadioGroup row name="securities" value={formik.values.securities} onChange={handleSecurities}>
@@ -123,52 +157,88 @@ const RoundPoints: FunctionComponent<Props> = ({
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Marcar si en la partida no se usaron Carta de Velocidad de 200"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.noOverSpeed && Boolean(formik.errors.noOverSpeed)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch name="noOverSpeed" checked={formik.values.noOverSpeed} />}
+                  control={<Checkbox name="noOverSpeed" checked={formik.values.noOverSpeed} sx={{ pl: 0 }} />}
                   onChange={formik.handleChange}
                   label="Viaje Seguro"
-                  labelPlacement="start"
+                  labelPlacement="end"
                   sx={{ m: 0 }}
                 />
               </FormGroup>
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Marcar si este jugador o equipo realizó un Viaje completo y otro jugador o equipo no pudo utilizar Carta de Velocidad"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.blocked && Boolean(formik.errors.blocked)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch name="blocked" checked={formik.values.blocked} />}
+                  control={<Checkbox name="blocked" checked={formik.values.blocked} sx={{ pl: 0 }} />}
                   onChange={formik.handleChange}
                   label="Bloqueo"
-                  labelPlacement="start"
+                  labelPlacement="end"
                   sx={{ m: 0 }}
                 />
               </FormGroup>
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Marcar si este jugador o equipo realizó un Viaje completo y jugó sin Cartas disponibles en el mazo"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.overTime && Boolean(formik.errors.overTime)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch name="overTime" checked={formik.values.overTime} />}
+                  control={<Checkbox name="overTime" checked={formik.values.overTime} sx={{ pl: 0 }} />}
                   onChange={formik.handleChange}
                   label="Acción Demorada"
-                  labelPlacement="start"
+                  labelPlacement="end"
                   sx={{ m: 0 }}
                 />
               </FormGroup>
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Tooltip
+              title="Marcar si esta partida era a 700 millas pero este jugador o equipo propuso alargar a 1.000 millas y realizó un Viaje completo"
+              disableFocusListener
+              arrow
+              placement="right">
+              <IconButton sx={{ mr: 1 }}>
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
             <FormControl error={formik.touched.extraMile && Boolean(formik.errors.extraMile)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch name="extraMile" checked={formik.values.extraMile} />}
+                  control={<Checkbox name="extraMile" checked={formik.values.extraMile} sx={{ pl: 0 }} />}
                   onChange={formik.handleChange}
                   label="Alargue"
-                  labelPlacement="start"
+                  labelPlacement="end"
                   sx={{ m: 0 }}
                 />
               </FormGroup>
