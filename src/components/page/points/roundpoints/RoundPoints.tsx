@@ -245,17 +245,21 @@ const RoundPoints: FunctionComponent<Props> = ({
             </FormControl>
           </Grid>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
-            <Button type="reset" variant="contained">
-              Reiniciar
-            </Button>
             <Box sx={{ m: 'auto' }} />
             <Button type="button" variant="contained" disabled={activeTeam === 0} onClick={goBack} sx={{ mx: 1 }}>
               Atrás
             </Button>
-            <Button type="submit" variant="contained" disabled={!formik.isValid}>
-              {Object.keys(points).length + 1 >= teams.length && activeTeam + 1 === teams.length
-                ? 'Finalizar'
-                : 'Siguiente'}
+            <Button type="submit" variant="contained" disabled={!formik.isValid || activeTeam + 1 === teams.length}>
+              Siguiente
+            </Button>
+          </Grid>
+          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+            <Button type="reset" variant="contained">
+              Reiniciar
+            </Button>
+            <Box sx={{ m: 'auto' }} />
+            <Button type="submit" variant="contained" disabled={!formik.isValid || activeTeam + 1 < teams.length}>
+              Finalizar
             </Button>
           </Grid>
         </Grid>
