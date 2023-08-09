@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent } from 'react';
+import { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent } from 'react';
 import {
   Box,
   Button,
@@ -6,16 +6,17 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormLabel,
   Grid,
   IconButton,
   Paper,
-  Radio,
-  RadioGroup,
+  Slider,
+  Stack,
   Step,
   StepLabel,
   Stepper,
+  SxProps,
   TextField,
+  Theme,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -31,11 +32,17 @@ interface Props extends HTMLAttributes<unknown> {
   activeTeam: number;
   formik: FormikProps<PointsType>;
   handleFullTrip: (event: SyntheticEvent, checked: boolean) => void;
-  handleTk: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
-  handleSecurities: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
+  handleTk: (event: Event, value: number | number[]) => void;
+  handleSecurities: (event: Event, value: number | number[]) => void;
   handleReset: (event: FormEvent<HTMLFormElement>) => void;
   goBack: () => void;
 }
+
+const sliderSx: SxProps<Theme> = {
+  mb: 0.5,
+  '& .MuiSlider-rail': { backgroundColor: (theme) => theme.palette.text.disabled },
+  '& .MuiSlider-mark': { color: (theme) => theme.palette.text.secondary },
+};
 
 const RoundPoints: FunctionComponent<Props> = ({
   teams,
@@ -114,49 +121,69 @@ const RoundPoints: FunctionComponent<Props> = ({
               error={formik.touched.traveled && Boolean(formik.errors.traveled)}
             />
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
-            <Tooltip
-              title="Cantidad de TKs en la jugada (Si se usó la Carta de Seguridad correspondiente inmediatamente después de su Carta de Problema)"
-              disableFocusListener
-              arrow
-              placement="right">
-              <IconButton sx={{ mr: 1 }}>
-                <HelpIcon />
-              </IconButton>
-            </Tooltip>
-            <FormControl error={formik.touched.tk && Boolean(formik.errors.tk)}>
-              <FormLabel>TKs</FormLabel>
-              <RadioGroup row name="tk" value={formik.values.tk} onChange={handleTk}>
-                <FormControlLabel value={0} control={<Radio />} label="Ninguno" />
-                <FormControlLabel value={1} control={<Radio />} label="Uno" />
-                <FormControlLabel value={2} control={<Radio />} label="Dos" />
-                <FormControlLabel value={3} control={<Radio />} label="Tres" />
-                <FormControlLabel value={4} control={<Radio />} label="Cuatro" />
-              </RadioGroup>
-            </FormControl>
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+            <Stack direction="row" alignItems="center">
+              <Tooltip
+                title="Cantidad de TKs en la jugada (Si se usó la Carta de Seguridad correspondiente inmediatamente después de su Carta de Problema)"
+                disableFocusListener
+                arrow
+                placement="right">
+                <IconButton sx={{ mr: 1 }}>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+              <Typography variant="body1">TKs</Typography>
+            </Stack>
+            <Box sx={{ ml: 7, mr: 2 }}>
+              <Slider
+                sx={sliderSx}
+                defaultValue={0}
+                name="tk"
+                value={formik.values.tk}
+                min={0}
+                max={4}
+                step={1}
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' },
+                  { value: 4, label: '4' },
+                ]}
+                onChange={handleTk}
+              />
+            </Box>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
-            <Tooltip
-              title="Cantidad de Cartas de Seguridades de la partida"
-              disableFocusListener
-              arrow
-              placement="right">
-              <IconButton sx={{ mr: 1 }}>
-                <HelpIcon />
-              </IconButton>
-            </Tooltip>
-            <FormControl error={formik.touched.securities && Boolean(formik.errors.securities)}>
-              <FormLabel>Seguridades I</FormLabel>
-              <RadioGroup row name="securities" value={formik.values.securities} onChange={handleSecurities}>
-                <FormControlLabel value={0} control={<Radio />} label="Ninguna" />
-                <FormControlLabel value={1} control={<Radio />} label="Una" />
-                <FormControlLabel value={2} control={<Radio />} label="Dos" />
-                <FormControlLabel value={3} control={<Radio />} label="Tres" />
-                <FormControlLabel value={4} control={<Radio />} label="Cuatro" />
-              </RadioGroup>
-            </FormControl>
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+            <Stack direction="row" alignItems="center">
+              <Tooltip title="Cantidad de Cartas de Seguridades de la partida" arrow placement="right">
+                <IconButton sx={{ mr: 1 }}>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+              <Typography variant="body1">Seguridades</Typography>
+            </Stack>
+            <Box sx={{ ml: 7, mr: 2 }}>
+              <Slider
+                sx={sliderSx}
+                defaultValue={0}
+                name="securities"
+                value={formik.values.securities}
+                min={0}
+                max={4}
+                step={1}
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' },
+                  { value: 4, label: '4' },
+                ]}
+                onChange={handleSecurities}
+              />
+            </Box>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si en la partida no se usaron Carta de Velocidad de 200"
               disableFocusListener
@@ -178,7 +205,7 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo y otro jugador o equipo no pudo utilizar Carta de Velocidad"
               disableFocusListener
@@ -200,7 +227,7 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo y jugó sin Cartas disponibles en el mazo"
               disableFocusListener
@@ -222,7 +249,7 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
               title="Marcar si esta partida era a 700 millas pero este jugador o equipo propuso alargar a 1.000 millas y realizó un Viaje completo"
               disableFocusListener
