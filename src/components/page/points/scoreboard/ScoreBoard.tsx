@@ -42,7 +42,7 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
           <Box sx={{ px: { sm: 2, md: 4 }, mt: 2 }}>
             <Stepper activeStep={selectedPoints}>
               {points.map((_, idx) => {
-                let stepProps: {} = { completed: false };
+                let stepProps: object = { completed: false };
                 if (idx === selectedPoints) {
                   stepProps = { ...stepProps, active: true };
                 }
@@ -84,39 +84,51 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
-                {teams.map((team) => {
-                  return <TableCell align="right">{team.name}</TableCell>;
+                {teams.map((team, idx) => {
+                  return (
+                    <TableCell align="right" key={`teamName${idx}`}>
+                      {team.name}
+                    </TableCell>
+                  );
                 })}
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell>Viaje completo</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].fullTrip)}</TableCell>
+                    <TableCell align="right" key={`fullTrip${idx}`}>
+                      {Formatter.number(points[selectedPoints][team.name].fullTrip)}
+                    </TableCell>
                   );
                 })}
               </TableRow>
               <TableRow>
                 <TableCell>Recorrido</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].traveled)}</TableCell>
+                    <TableCell align="right" key={`traveled${idx}`}>
+                      {Formatter.number(points[selectedPoints][team.name].traveled)}
+                    </TableCell>
                   );
                 })}
               </TableRow>
               <TableRow>
                 <TableCell>TK</TableCell>
-                {teams.map((team) => {
-                  return <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].tk)}</TableCell>;
+                {teams.map((team, idx) => {
+                  return (
+                    <TableCell align="right" key={`tk${idx}`}>
+                      {Formatter.number(points[selectedPoints][team.name].tk)}
+                    </TableCell>
+                  );
                 })}
               </TableRow>
               <TableRow>
                 <TableCell>Seguridades I</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">
+                    <TableCell align="right" key={`securities${idx}`}>
                       {Formatter.number(points[selectedPoints][team.name].securities)}
                     </TableCell>
                   );
@@ -124,9 +136,9 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
               </TableRow>
               <TableRow>
                 <TableCell>Seguridades II</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">
+                    <TableCell align="right" key={`fullSecurities${idx}`}>
                       {Formatter.number(points[selectedPoints][team.name].fullSecurities)}
                     </TableCell>
                   );
@@ -134,9 +146,9 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
               </TableRow>
               <TableRow>
                 <TableCell>Viaje Seguro</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">
+                    <TableCell align="right" key={`noOverSpeed${idx}`}>
                       {Formatter.number(points[selectedPoints][team.name].noOverSpeed)}
                     </TableCell>
                   );
@@ -144,25 +156,31 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
               </TableRow>
               <TableRow>
                 <TableCell>Bloqueo</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].blocked)}</TableCell>
+                    <TableCell align="right" key={`blocked${idx}`}>
+                      {Formatter.number(points[selectedPoints][team.name].blocked)}
+                    </TableCell>
                   );
                 })}
               </TableRow>
               <TableRow>
                 <TableCell>Acción Demorada</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].overTime)}</TableCell>
+                    <TableCell align="right" key={`extraTime${idx}`}>
+                      {Formatter.number(points[selectedPoints][team.name].overTime)}
+                    </TableCell>
                   );
                 })}
               </TableRow>
               <TableRow>
                 <TableCell>Alargue</TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">{Formatter.number(points[selectedPoints][team.name].extraMile)}</TableCell>
+                    <TableCell align="right" key={`extraMile${idx}`}>
+                      {Formatter.number(points[selectedPoints][team.name].extraMile)}
+                    </TableCell>
                   );
                 })}
               </TableRow>
@@ -174,9 +192,9 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
                     Total
                   </Typography>
                 </TableCell>
-                {teams.map((team) => {
+                {teams.map((team, idx) => {
                   return (
-                    <TableCell align="right">
+                    <TableCell align="right" key={`total${idx}`}>
                       <Typography component="strong" color="text.primary">
                         {Formatter.number(totals[team.name])}
                       </Typography>
