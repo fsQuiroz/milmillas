@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FormEvent, FunctionComponent, SyntheticEvent } from 'react';
 import {
   Box,
   Button,
@@ -27,11 +27,24 @@ type Props = {
   points: Points;
   activeTeam: number;
   formik: FormikProps<PointsType>;
+  handleFullTrip: (event: SyntheticEvent, checked: boolean) => void;
+  handleTk: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
+  handleSecurities: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
   handleReset: (event: FormEvent<HTMLFormElement>) => void;
   goBack: () => void;
 };
 
-const RoundPoints: FunctionComponent<Props> = ({ teams, points, activeTeam, formik, handleReset, goBack }) => {
+const RoundPoints: FunctionComponent<Props> = ({
+  teams,
+  points,
+  activeTeam,
+  formik,
+  handleFullTrip,
+  handleTk,
+  handleSecurities,
+  handleReset,
+  goBack,
+}) => {
   return (
     <Paper elevation={2} sx={{ p: 1, mb: 2 }}>
       <Box sx={{ pt: 1, pb: 2 }}>
@@ -66,7 +79,7 @@ const RoundPoints: FunctionComponent<Props> = ({ teams, points, activeTeam, form
               <FormGroup>
                 <FormControlLabel
                   control={<Switch name="fullTrip" checked={formik.values.fullTrip} />}
-                  onChange={formik.handleChange}
+                  onChange={handleFullTrip}
                   label="Viaje completo"
                   labelPlacement="start"
                   sx={{ m: 0 }}
@@ -88,7 +101,7 @@ const RoundPoints: FunctionComponent<Props> = ({ teams, points, activeTeam, form
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
             <FormControl error={formik.touched.tk && Boolean(formik.errors.tk)}>
               <FormLabel>TKs</FormLabel>
-              <RadioGroup row name="tk" value={formik.values.tk} onChange={formik.handleChange}>
+              <RadioGroup row name="tk" value={formik.values.tk} onChange={handleTk}>
                 <FormControlLabel value={0} control={<Radio />} label="Ninguno" />
                 <FormControlLabel value={1} control={<Radio />} label="Uno" />
                 <FormControlLabel value={2} control={<Radio />} label="Dos" />
@@ -100,7 +113,7 @@ const RoundPoints: FunctionComponent<Props> = ({ teams, points, activeTeam, form
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
             <FormControl error={formik.touched.securities && Boolean(formik.errors.securities)}>
               <FormLabel>Seguridades I</FormLabel>
-              <RadioGroup row name="securities" value={formik.values.securities} onChange={formik.handleChange}>
+              <RadioGroup row name="securities" value={formik.values.securities} onChange={handleSecurities}>
                 <FormControlLabel value={0} control={<Radio />} label="Ninguna" />
                 <FormControlLabel value={1} control={<Radio />} label="Una" />
                 <FormControlLabel value={2} control={<Radio />} label="Dos" />
@@ -169,7 +182,7 @@ const RoundPoints: FunctionComponent<Props> = ({ teams, points, activeTeam, form
             <Button type="button" variant="contained" disabled={activeTeam === 0} onClick={goBack} sx={{ mx: 1 }}>
               Atrás
             </Button>
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" disabled={!formik.isValid}>
               {Object.keys(points).length + 1 >= teams.length && activeTeam + 1 === teams.length
                 ? 'Finalizar'
                 : 'Siguiente'}

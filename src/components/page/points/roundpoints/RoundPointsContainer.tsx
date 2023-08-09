@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, FunctionComponent, SyntheticEvent, useContext, useState } from 'react';
 import { Point, Points } from '../../../../models/Points.ts';
 import RoundPoints from './RoundPoints.tsx';
 import { Team } from '../../../../models/Team.ts';
@@ -29,7 +29,7 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
 
   const validation = yup.object({
     fullTrip: yup.boolean().required(),
-    traveled: yup.number().required(),
+    traveled: yup.number().min(0).max(1000).required(),
     tk: yup.number().required(),
     securities: yup.number().required(),
     noOverSpeed: yup.boolean().required(),
@@ -66,6 +66,31 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
     formik.handleReset(event);
     setPoints({});
     setActiveTeam(0);
+  };
+
+  const handleFullTrip = (event: SyntheticEvent, checked: boolean) => {
+    formik.handleChange(event);
+    formik.setFieldValue('traveled', checked ? 1000 : 0);
+  };
+
+  const handleTk = (event: ChangeEvent<HTMLInputElement>, value: string) => {
+    formik.handleChange(event);
+    const newValue = parseInt(value);
+    const securities = formik.values.securities;
+
+    if (newValue > securities) {
+      formik.setFieldValue('securities', newValue);
+    }
+  };
+
+  const handleSecurities = (event: ChangeEvent<HTMLInputElement>, value: string) => {
+    formik.handleChange(event);
+    const newValue = parseInt(value);
+    const tk = formik.values.tk;
+
+    if (newValue < tk) {
+      formik.setFieldValue('tk', newValue);
+    }
   };
 
   const goBack = () => {
@@ -105,6 +130,9 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
       points={points}
       activeTeam={activeTeam}
       formik={formik}
+      handleFullTrip={handleFullTrip}
+      handleTk={handleTk}
+      handleSecurities={handleSecurities}
       handleReset={handleReset}
       goBack={goBack}
     />
