@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Grid,
+  Hidden,
   Paper,
   Step,
   StepLabel,
@@ -48,7 +49,9 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
                 }
                 return (
                   <Step key={idx} {...stepProps}>
-                    <StepLabel>{`Partida ${idx + 1}`}</StepLabel>
+                    <StepLabel>
+                      <Hidden mdDown>{`Partida ${idx + 1}`}</Hidden>
+                    </StepLabel>
                   </Step>
                 );
               })}
