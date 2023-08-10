@@ -10,8 +10,10 @@ import { PointsContext } from '../../../context/PointsContext.tsx';
 import { useNavigate } from 'react-router-dom';
 
 const TeamsContainer: FunctionComponent = () => {
+  const { teams, initTeams } = useContext(PointsContext);
+  const [existsPrev, setExistsPrev] = useState<boolean>(teams.length > 1);
   const [playersSize, setPlayersSize] = useState<number>(2);
-  const { setTeams } = useContext(PointsContext);
+  const [_teams, setTeams] = useState<Team[]>([]);
   const navigate = useNavigate();
 
   const validations = yup.object({
@@ -42,7 +44,7 @@ const TeamsContainer: FunctionComponent = () => {
       if (playersSize > 2) {
         newTeams = [...newTeams, { name: values.team3 }];
       }
-      setTeams(newTeams);
+      initTeams(newTeams);
       navigate('/points');
     },
   });
@@ -51,6 +53,22 @@ const TeamsContainer: FunctionComponent = () => {
     if (playersSize !== newSize) {
       setTeams([]);
       setPlayersSize(newSize);
+    }
+  };
+
+  const init = () => {
+    if (teams.length > 1) {
+      teams.forEach((t, idx) => {
+        formik.setFieldValue(`team${idx + 1}`, t.name);
+      });
+      if (teams.length < 3) {
+        formik.setFieldValue('team3', 'none');
+      }
+      setExistsPrev(true);
+      setTeams(teams);
+      setPlayersSize(teams.length);
+    } else {
+      generateNames();
     }
   };
 
@@ -74,14 +92,20 @@ const TeamsContainer: FunctionComponent = () => {
     setTeams(newTeams);
   };
 
-  useEffect(generateNames, [playersSize]);
+  const resume = () => {
+    navigate('/points');
+  };
+
+  useEffect(init, [playersSize, teams]);
 
   return (
     <Teams
+      existsPrev={existsPrev}
       playersSize={playersSize}
       formik={formik}
       resetPlayersSize={resetPlayersSize}
       generateNames={generateNames}
+      resume={resume}
     />
   );
 };

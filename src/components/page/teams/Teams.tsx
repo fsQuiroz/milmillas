@@ -4,13 +4,22 @@ import { FormikProps } from 'formik';
 import { TeamType } from '../../../models/forms/TeamType.tsx';
 
 interface Props {
+  existsPrev: boolean;
   playersSize: number;
   formik: FormikProps<TeamType>;
   resetPlayersSize: (newSize: number) => void;
   generateNames: () => void;
+  resume: () => void;
 }
 
-const Teams: FunctionComponent<Props> = ({ playersSize, formik, resetPlayersSize, generateNames }) => {
+const Teams: FunctionComponent<Props> = ({
+  existsPrev,
+  playersSize,
+  formik,
+  resetPlayersSize,
+  generateNames,
+  resume,
+}) => {
   return (
     <Container maxWidth="md" sx={{ mt: { xs: 9, sm: 12 }, mb: 2 }}>
       <Paper elevation={2} sx={{ px: 2 }}>
@@ -70,7 +79,7 @@ const Teams: FunctionComponent<Props> = ({ playersSize, formik, resetPlayersSize
               </Grid>
             )}
 
-            <Grid item xs={12} sm={8} ml="auto" m="auto">
+            <Grid item xs={12} sm={8} m="auto">
               <Button
                 type="button"
                 variant="contained"
@@ -81,7 +90,14 @@ const Teams: FunctionComponent<Props> = ({ playersSize, formik, resetPlayersSize
                 Regenerar nombres
               </Button>
             </Grid>
-            <Grid item xs={12} sm={8} ml="auto" m="auto">
+            {existsPrev && (
+              <Grid item xs={12} sm={8} m="auto">
+                <Button type="button" variant="contained" fullWidth color="success" size="large" onClick={resume}>
+                  Retomar
+                </Button>
+              </Grid>
+            )}
+            <Grid item xs={12} sm={8} m="auto">
               <Button type="submit" variant="contained" fullWidth size="large">
                 Empezar
               </Button>

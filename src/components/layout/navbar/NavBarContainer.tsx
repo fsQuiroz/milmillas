@@ -6,10 +6,10 @@ import NavBar from './NavBar.tsx';
 const NavBarContainer: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setTeams } = useContext(PointsContext);
+  const { initTeams } = useContext(PointsContext);
 
   const reset = () => {
-    setTeams([]);
+    initTeams([]);
     navigate('/');
   };
 

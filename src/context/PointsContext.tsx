@@ -8,7 +8,7 @@ const LS_TOTALS = 'totals';
 
 type PointsContextValues = {
   teams: Team[];
-  setTeams: (teams: Team[]) => void;
+  initTeams: (teams: Team[]) => void;
   points: Points[];
   updatePoints: (p: Points) => void;
   totals: TotalPoints;
@@ -16,7 +16,7 @@ type PointsContextValues = {
 
 const initValues: PointsContextValues = {
   teams: [],
-  setTeams: () => {},
+  initTeams: () => {},
   points: [],
   updatePoints: () => {},
   totals: {},
@@ -72,7 +72,7 @@ export const PointsContextProvider: FunctionComponent<HTMLAttributes<unknown>> =
 
   const values: PointsContextValues = {
     teams,
-    setTeams: initTeams,
+    initTeams,
     points,
     updatePoints,
     totals,
