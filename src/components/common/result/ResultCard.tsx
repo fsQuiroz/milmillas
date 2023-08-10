@@ -1,5 +1,5 @@
 import { FunctionComponent, HTMLAttributes } from 'react';
-import { Box, Paper, Slider, SliderThumb, Stack, Theme, Typography } from '@mui/material';
+import { Box, Paper, Slider, SliderThumb, Stack, SxProps, Theme, Typography } from '@mui/material';
 import * as Formatter from '../../../util/formatters.ts';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
@@ -14,6 +14,18 @@ interface Props extends HTMLAttributes<unknown> {
   endGame: boolean;
   position: number;
 }
+
+const getSliderSx = (endGame: boolean, position: number): SxProps<Theme> => {
+  return {
+    '& .MuiSlider-rail': { color: (theme) => railColorDecider(endGame ? position : -1, theme) },
+    '& .MuiSlider-track': { height: 6, color: (theme) => trackColorDecider(endGame ? position : -1, theme) },
+    '& .MuiSlider-thumb': {
+      height: 40,
+      width: 40,
+      color: (theme) => thumbColorDecider(endGame ? position : -1, theme),
+    },
+  };
+};
 
 const SliderInProgressThumb: FunctionComponent<HTMLAttributes<unknown>> = (props) => {
   const { children, ...other } = props;
@@ -68,16 +80,42 @@ const thumbDecider = (position: number) => {
   }
 };
 
-const colorDecider = (position: number, theme: Theme): string => {
+const trackColorDecider = (position: number, theme: Theme): string => {
   switch (position) {
     case 0:
       return theme.palette.success.main;
     case 1:
       return theme.palette.warning.main;
     case 2:
-      return theme.palette.error.light;
+      return theme.palette.error.main;
     default:
       return theme.palette.secondary.main;
+  }
+};
+
+const thumbColorDecider = (position: number, theme: Theme): string => {
+  switch (position) {
+    case 0:
+      return theme.palette.success.main;
+    case 1:
+      return theme.palette.warning.main;
+    case 2:
+      return theme.palette.error.main;
+    default:
+      return theme.palette.secondary.light;
+  }
+};
+
+const railColorDecider = (position: number, theme: Theme): string => {
+  switch (position) {
+    case 0:
+      return theme.palette.success.light;
+    case 1:
+      return theme.palette.warning.light;
+    case 2:
+      return theme.palette.error.light;
+    default:
+      return theme.palette.secondary.light;
   }
 };
 
@@ -103,14 +141,7 @@ const ResultCard: FunctionComponent<Props> = ({ points, endGame, position }) => 
           slots={{
             thumb: thumbDecider(endGame ? position : -1),
           }}
-          sx={{
-            '& .MuiSlider-track': { color: (theme) => colorDecider(endGame ? position : -1, theme) },
-            '& .MuiSlider-thumb': {
-              height: 32,
-              width: 32,
-              color: (theme) => colorDecider(endGame ? position : -1, theme),
-            },
-          }}
+          sx={getSliderSx(endGame, position)}
         />
         <SportsScoreIcon />
       </Stack>
