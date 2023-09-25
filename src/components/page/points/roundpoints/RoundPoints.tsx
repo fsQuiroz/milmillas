@@ -99,7 +99,8 @@ const RoundPoints: FunctionComponent<Props> = ({
               placement="right"
               arrow
               disableFocusListener
-              enterTouchDelay={0}>
+              enterTouchDelay={0}
+              leaveTouchDelay={10000}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -123,7 +124,8 @@ const RoundPoints: FunctionComponent<Props> = ({
                 placement="right"
                 arrow
                 disableFocusListener
-                enterTouchDelay={0}>
+                enterTouchDelay={0}
+                leaveTouchDelay={10000}>
                 <IconButton sx={{ mr: 1 }}>
                   <HelpIcon />
                 </IconButton>
@@ -146,7 +148,8 @@ const RoundPoints: FunctionComponent<Props> = ({
                 placement="right"
                 arrow
                 disableFocusListener
-                enterTouchDelay={0}>
+                enterTouchDelay={0}
+                leaveTouchDelay={10000}>
                 <IconButton sx={{ mr: 1 }}>
                   <HelpIcon />
                 </IconButton>
@@ -174,7 +177,8 @@ const RoundPoints: FunctionComponent<Props> = ({
                 placement="right"
                 arrow
                 disableFocusListener
-                enterTouchDelay={0}>
+                enterTouchDelay={0}
+                leaveTouchDelay={10000}>
                 <IconButton sx={{ mr: 1 }}>
                   <HelpIcon />
                 </IconButton>
@@ -201,7 +205,8 @@ const RoundPoints: FunctionComponent<Props> = ({
               placement="right"
               arrow
               disableFocusListener
-              enterTouchDelay={0}>
+              enterTouchDelay={0}
+              leaveTouchDelay={10000}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -224,7 +229,8 @@ const RoundPoints: FunctionComponent<Props> = ({
               placement="right"
               arrow
               disableFocusListener
-              enterTouchDelay={0}>
+              enterTouchDelay={0}
+              leaveTouchDelay={10000}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -247,7 +253,8 @@ const RoundPoints: FunctionComponent<Props> = ({
               placement="right"
               arrow
               disableFocusListener
-              enterTouchDelay={0}>
+              enterTouchDelay={0}
+              leaveTouchDelay={10000}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
@@ -270,7 +277,8 @@ const RoundPoints: FunctionComponent<Props> = ({
               placement="right"
               arrow
               disableFocusListener
-              enterTouchDelay={0}>
+              enterTouchDelay={0}
+              leaveTouchDelay={10000}>
               <IconButton sx={{ mr: 1 }}>
                 <HelpIcon />
               </IconButton>
