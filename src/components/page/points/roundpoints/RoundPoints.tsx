@@ -36,6 +36,7 @@ interface Props extends HTMLAttributes<unknown> {
   handleTk: (event: Event, value: number | number[]) => void;
   handleSecurities: (event: Event, value: number | number[]) => void;
   handleReset: (event: FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
   goBack: () => void;
 }
 
@@ -62,6 +63,7 @@ const RoundPoints: FunctionComponent<Props> = ({
   handleTk,
   handleSecurities,
   handleReset,
+  handleSubmit,
   goBack,
 }) => {
   return (
@@ -91,7 +93,7 @@ const RoundPoints: FunctionComponent<Props> = ({
           })}
         </Stepper>
       </Box>
-      <Box component="form" onSubmit={formik.handleSubmit} onReset={handleReset} sx={{ pt: 2, pb: 1 }}>
+      <Box component="form" onSubmit={handleSubmit} onReset={handleReset} sx={{ pt: 2, pb: 1 }}>
         <Grid container spacing={2}>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip

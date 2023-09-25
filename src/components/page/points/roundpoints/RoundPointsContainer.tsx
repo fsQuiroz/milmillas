@@ -62,10 +62,20 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
     },
   });
 
+  const goToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    formik.handleSubmit(event);
+    goToTop();
+  };
+
   const handleReset = (event: FormEvent<HTMLFormElement>) => {
     formik.handleReset(event);
     setPoints({});
     setActiveTeam(0);
+    goToTop();
   };
 
   const handleFullTrip = (event: SyntheticEvent, checked: boolean) => {
@@ -101,6 +111,7 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
 
   const goBack = () => {
     moveStep(false);
+    goToTop();
   };
 
   const moveStep = (foward: boolean) => {
@@ -140,6 +151,7 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
       handleTk={handleTk}
       handleSecurities={handleSecurities}
       handleReset={handleReset}
+      handleSubmit={handleSubmit}
       goBack={goBack}
     />
   );
