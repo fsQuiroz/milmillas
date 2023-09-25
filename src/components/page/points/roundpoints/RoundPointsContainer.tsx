@@ -71,6 +71,12 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
   const handleFullTrip = (event: SyntheticEvent, checked: boolean) => {
     formik.handleChange(event);
     formik.setFieldValue('traveled', checked ? 1000 : 0);
+    if (!checked) {
+      formik.setFieldValue('noOverSpeed', 0);
+      formik.setFieldValue('blocked', 0);
+      formik.setFieldValue('overTime', 0);
+      formik.setFieldValue('extraMile', 0);
+    }
   };
 
   const handleTk = (event: Event, value: number | number[]) => {

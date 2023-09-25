@@ -201,7 +201,7 @@ const RoundPoints: FunctionComponent<Props> = ({
           </Grid>
           <Grid item xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
-              title="Marcar si en la partida no se usaron Carta de Velocidad de 200"
+              title="Marcar si este jugador o equipo realizó un Viaje completo sin usar Carta de Velocidad de 200"
               placement="right"
               arrow
               disableFocusListener
@@ -214,7 +214,14 @@ const RoundPoints: FunctionComponent<Props> = ({
             <FormControl error={formik.touched.noOverSpeed && Boolean(formik.errors.noOverSpeed)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox name="noOverSpeed" checked={formik.values.noOverSpeed} sx={{ pl: 0 }} />}
+                  control={
+                    <Checkbox
+                      name="noOverSpeed"
+                      checked={formik.values.noOverSpeed}
+                      disabled={!formik.values.fullTrip}
+                      sx={{ pl: 0 }}
+                    />
+                  }
                   onChange={formik.handleChange}
                   label="Viaje Seguro"
                   labelPlacement="end"
@@ -238,7 +245,14 @@ const RoundPoints: FunctionComponent<Props> = ({
             <FormControl error={formik.touched.blocked && Boolean(formik.errors.blocked)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox name="blocked" checked={formik.values.blocked} sx={{ pl: 0 }} />}
+                  control={
+                    <Checkbox
+                      name="blocked"
+                      checked={formik.values.blocked}
+                      disabled={!formik.values.fullTrip}
+                      sx={{ pl: 0 }}
+                    />
+                  }
                   onChange={formik.handleChange}
                   label="Bloqueo"
                   labelPlacement="end"
@@ -262,7 +276,14 @@ const RoundPoints: FunctionComponent<Props> = ({
             <FormControl error={formik.touched.overTime && Boolean(formik.errors.overTime)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox name="overTime" checked={formik.values.overTime} sx={{ pl: 0 }} />}
+                  control={
+                    <Checkbox
+                      name="overTime"
+                      checked={formik.values.overTime}
+                      disabled={!formik.values.fullTrip}
+                      sx={{ pl: 0 }}
+                    />
+                  }
                   onChange={formik.handleChange}
                   label="Acción Demorada"
                   labelPlacement="end"
@@ -286,7 +307,14 @@ const RoundPoints: FunctionComponent<Props> = ({
             <FormControl error={formik.touched.extraMile && Boolean(formik.errors.extraMile)}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox name="extraMile" checked={formik.values.extraMile} sx={{ pl: 0 }} />}
+                  control={
+                    <Checkbox
+                      name="extraMile"
+                      checked={formik.values.extraMile}
+                      disabled={!formik.values.fullTrip}
+                      sx={{ pl: 0 }}
+                    />
+                  }
                   onChange={formik.handleChange}
                   label="Alargue"
                   labelPlacement="end"
