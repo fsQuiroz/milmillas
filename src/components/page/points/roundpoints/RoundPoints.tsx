@@ -1,8 +1,13 @@
-import { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent } from 'react';
+import { FormEvent, FunctionComponent, HTMLAttributes, MutableRefObject, SyntheticEvent } from 'react';
 import {
   Box,
   Button,
   Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -31,13 +36,17 @@ interface Props extends HTMLAttributes<unknown> {
   teams: Team[];
   points: Points;
   activeTeam: number;
+  isConfirmOpen: boolean;
+  formRef: MutableRefObject<HTMLFormElement | undefined>;
   formik: FormikProps<PointsType>;
   handleFullTrip: (event: SyntheticEvent, checked: boolean) => void;
   handleTk: (event: Event, value: number | number[]) => void;
   handleSecurities: (event: Event, value: number | number[]) => void;
   handleReset: (event: FormEvent<HTMLFormElement>) => void;
-  handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (event: FormEvent<HTMLFormElement> | undefined) => void;
   goBack: () => void;
+  handleOpenConfirm: () => void;
+  handleCloseConfirm: (shouldSubmit?: boolean) => void;
 }
 
 const sliderSx: SxProps<Theme> = {
@@ -58,6 +67,8 @@ const RoundPoints: FunctionComponent<Props> = ({
   teams,
   points,
   activeTeam,
+  isConfirmOpen,
+  formRef,
   formik,
   handleFullTrip,
   handleTk,
@@ -65,6 +76,8 @@ const RoundPoints: FunctionComponent<Props> = ({
   handleReset,
   handleSubmit,
   goBack,
+  handleOpenConfirm,
+  handleCloseConfirm,
 }) => {
   return (
     <Paper elevation={2} sx={{ px: 2, pb: 1, mb: 2 }}>
@@ -93,7 +106,7 @@ const RoundPoints: FunctionComponent<Props> = ({
           })}
         </Stepper>
       </Box>
-      <Box component="form" onSubmit={handleSubmit} onReset={handleReset} sx={{ pt: 2, pb: 1 }}>
+      <Box component="form" onSubmit={handleSubmit} onReset={handleReset} sx={{ pt: 2, pb: 1 }} ref={formRef}>
         <Grid container spacing={2}>
           <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
             <Tooltip
@@ -339,12 +352,45 @@ const RoundPoints: FunctionComponent<Props> = ({
               Reiniciar
             </Button>
             <Box sx={{ m: 'auto' }} />
-            <Button type="submit" variant="contained" disabled={!formik.isValid || activeTeam + 1 < teams.length}>
+            <Button
+              type="button"
+              variant="contained"
+              disabled={!formik.isValid || activeTeam + 1 < teams.length}
+              onClick={handleOpenConfirm}>
               Finalizar
             </Button>
           </Grid>
         </Grid>
       </Box>
+      <Dialog open={isConfirmOpen} onClose={() => handleCloseConfirm(false)}>
+        <DialogTitle>Finalizar Registro de Puntajes?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Desea finalizar el Registro de Puntajes para esta partida? Esta acción no se puede deshacer.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="button"
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={() => handleCloseConfirm(false)}
+            autoFocus
+            sx={{ mb: 1 }}>
+            Volver
+          </Button>
+          <Button
+            type="button"
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={() => handleCloseConfirm(true)}
+            sx={{ mb: 1, mr: 1 }}>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 };

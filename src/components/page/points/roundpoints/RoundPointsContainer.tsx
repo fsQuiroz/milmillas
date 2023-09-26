@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent, useContext, useState } from 'react';
+import { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent, useContext, useRef, useState } from 'react';
 import { Point, Points } from '../../../../models/Points.ts';
 import RoundPoints from './RoundPoints.tsx';
 import { Team } from '../../../../models/Team.ts';
@@ -25,7 +25,9 @@ const initValues: PointsType = {
 const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
   const [points, setPoints] = useState<Points>({});
   const [activeTeam, setActiveTeam] = useState<number>(0);
+  const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
   const { updatePoints } = useContext(PointsContext);
+  const formRef = useRef<HTMLFormElement>();
 
   const validation = yup.object({
     fullTrip: yup.boolean().required(),
@@ -62,11 +64,22 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
     },
   });
 
+  const handleOpenConfirm = () => {
+    setConfirmOpen(true);
+  };
+
+  const handleCloseConfirm = (shouldSubmit?: boolean) => {
+    setConfirmOpen(false);
+    if (shouldSubmit) {
+      formRef.current?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    }
+  };
+
   const goToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement> | undefined) => {
     formik.handleSubmit(event);
     goToTop();
   };
@@ -146,6 +159,8 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
       teams={teams}
       points={points}
       activeTeam={activeTeam}
+      isConfirmOpen={confirmOpen}
+      formRef={formRef}
       formik={formik}
       handleFullTrip={handleFullTrip}
       handleTk={handleTk}
@@ -153,6 +168,8 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
       handleReset={handleReset}
       handleSubmit={handleSubmit}
       goBack={goBack}
+      handleOpenConfirm={handleOpenConfirm}
+      handleCloseConfirm={handleCloseConfirm}
     />
   );
 };
