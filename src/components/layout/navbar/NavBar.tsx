@@ -1,14 +1,27 @@
 import { FunctionComponent, HTMLAttributes } from 'react';
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
 import CachedIcon from '@mui/icons-material/Cached';
 
 interface Props extends HTMLAttributes<unknown> {
-  currentPath: string;
-  reset: () => void;
+  confirmOpen: boolean;
+  handleOpenConfirm: () => void;
+  handleCloseConfirm: (confirm: boolean) => void;
 }
 
-const NavBar: FunctionComponent<Props> = ({ currentPath, reset }) => {
+const NavBar: FunctionComponent<Props> = ({ confirmOpen, handleOpenConfirm, handleCloseConfirm }) => {
   return (
     <AppBar enableColorOnDark>
       <Toolbar>
@@ -16,15 +29,40 @@ const NavBar: FunctionComponent<Props> = ({ currentPath, reset }) => {
         <Typography variant="h6" noWrap sx={{ fontFamily: 'monospace', fontWeight: 700, letterSpacing: '.2rem' }}>
           Mil Millas
         </Typography>
-        {currentPath !== '/' && (
-          <>
-            <Box sx={{ m: 'auto' }} />
-            <IconButton onClick={reset}>
-              <CachedIcon />
-            </IconButton>
-          </>
-        )}
+        <Box sx={{ m: 'auto' }} />
+        <IconButton onClick={handleOpenConfirm}>
+          <CachedIcon />
+        </IconButton>
       </Toolbar>
+      <Dialog open={confirmOpen} onClose={() => handleCloseConfirm(false)}>
+        <DialogTitle>¿Reiniciar Partida?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Desea reiniciar la partida actual e iniciar de cero? Esta acción no se puede deshacer.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type="button"
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={() => handleCloseConfirm(false)}
+            autoFocus
+            sx={{ mb: 1 }}>
+            Cancelar
+          </Button>
+          <Button
+            type="button"
+            variant="outlined"
+            color="secondary"
+            size="small"
+            onClick={() => handleCloseConfirm(true)}
+            sx={{ mb: 1, mr: 1 }}>
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </AppBar>
   );
 };

@@ -363,7 +363,7 @@ const RoundPoints: FunctionComponent<Props> = ({
         </Grid>
       </Box>
       <Dialog open={isConfirmOpen} onClose={() => handleCloseConfirm(false)}>
-        <DialogTitle>Finalizar Registro de Puntajes?</DialogTitle>
+        <DialogTitle>¿Finalizar Registro de Puntajes?</DialogTitle>
         <DialogContent>
           <DialogContentText>
             ¿Desea finalizar el Registro de Puntajes para esta partida? Esta acción no se puede deshacer.
@@ -378,7 +378,7 @@ const RoundPoints: FunctionComponent<Props> = ({
             onClick={() => handleCloseConfirm(false)}
             autoFocus
             sx={{ mb: 1 }}>
-            Volver
+            Cancelar
           </Button>
           <Button
             type="button"

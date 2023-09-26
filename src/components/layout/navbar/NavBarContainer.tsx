@@ -1,19 +1,26 @@
-import { FunctionComponent, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { FunctionComponent, useContext, useState } from 'react';
 import { PointsContext } from '../../../context/PointsContext.tsx';
 import NavBar from './NavBar.tsx';
 
 const NavBarContainer: FunctionComponent = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
   const { initTeams } = useContext(PointsContext);
 
-  const reset = () => {
-    initTeams([]);
-    navigate('/');
+  const handleOpenConfirm = () => {
+    setConfirmOpen(true);
   };
 
-  return <NavBar currentPath={location.pathname} reset={reset} />;
+  const handleCloseConfirm = (confirm: boolean) => {
+    setConfirmOpen(false);
+    if (confirm) {
+      initTeams([]);
+      window.location.href = '/';
+    }
+  };
+
+  return (
+    <NavBar confirmOpen={confirmOpen} handleOpenConfirm={handleOpenConfirm} handleCloseConfirm={handleCloseConfirm} />
+  );
 };
 
 export default NavBarContainer;
