@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBarContainer from './navbar/NavBarContainer.tsx';
 

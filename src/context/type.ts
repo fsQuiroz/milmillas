@@ -1,5 +1,5 @@
-import { Team } from '../models/Team.ts';
-import { Points, TotalPoints } from '../models/Points.ts';
+import type { Team } from '../models/Team.ts';
+import type { Points, TotalPoints } from '../models/Points.ts';
 
 export type PointsContextValues = {
   teams: Team[];

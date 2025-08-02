@@ -1,5 +1,5 @@
-import { FunctionComponent, HTMLAttributes } from 'react';
-import { RankedPoints, TotalPoints } from '../../../../models/Points.ts';
+import type { FunctionComponent, HTMLAttributes } from 'react';
+import type { RankedPoints, TotalPoints } from '../../../../models/Points.ts';
 import LeaderBoard from './LeaderBoard.tsx';
 
 interface Props extends HTMLAttributes<unknown> {

@@ -1,4 +1,5 @@
-import { FunctionComponent, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
+import type { FunctionComponent } from 'react';
 import { PointsContext } from '../../../context';
 import NavBar from './NavBar.tsx';
 

@@ -1,10 +1,12 @@
-import { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent, useContext, useRef, useState } from 'react';
-import { Point, Points } from '../../../../models/Points.ts';
+import { useContext, useRef, useState } from 'react';
+import type { FormEvent, FunctionComponent, HTMLAttributes, SyntheticEvent } from 'react';
+import type { Point, Points } from '../../../../models/Points.ts';
 import RoundPoints from './RoundPoints.tsx';
-import { Team } from '../../../../models/Team.ts';
+import type { Team } from '../../../../models/Team.ts';
 import * as yup from 'yup';
-import { FormikProps, useFormik } from 'formik';
-import { PointsType } from '../../../../models/forms/PointsType.ts';
+import { useFormik } from 'formik';
+import type { FormikProps } from 'formik';
+import type { PointsType } from '../../../../models/forms/PointsType.ts';
 import { PointsContext } from '../../../../context';
 
 interface Props extends HTMLAttributes<unknown> {

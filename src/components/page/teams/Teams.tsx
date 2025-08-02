@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { Box, Button, ButtonGroup, Container, Grid, Paper, TextField, Typography } from '@mui/material';
-import { FormikProps } from 'formik';
-import { TeamType } from '../../../models/forms/TeamType.tsx';
+import type { FormikProps } from 'formik';
+import type { TeamType } from '../../../models/forms/TeamType.tsx';
 
 interface Props {
   existsPrev: boolean;

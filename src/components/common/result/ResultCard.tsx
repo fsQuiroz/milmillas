@@ -1,9 +1,10 @@
-import { FunctionComponent, HTMLAttributes } from 'react';
-import { Box, Paper, Slider, SliderThumb, Stack, SxProps, Theme, Typography } from '@mui/material';
+import type { FunctionComponent, HTMLAttributes } from 'react';
+import { Box, Paper, Slider, SliderThumb, Stack, Typography } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import * as Formatter from '../../../util/formatters.ts';
 import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import { RankedPoints } from '../../../models/Points.ts';
+import type { RankedPoints } from '../../../models/Points.ts';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';

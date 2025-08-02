@@ -1,4 +1,5 @@
-import { Context, createContext } from 'react';
+import { createContext } from 'react';
+import type { Context } from 'react';
 import type { PointsContextValues } from '.';
 
 const initValues: PointsContextValues = {

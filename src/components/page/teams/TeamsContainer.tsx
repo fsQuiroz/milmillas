@@ -1,14 +1,15 @@
-import { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import type { FunctionComponent } from 'react';
 import Teams from './Teams.tsx';
-import { Team } from '../../../models/Team.ts';
+import type { Team } from '../../../models/Team.ts';
 import { uniqueNamesGenerator } from 'unique-names-generator';
 import { adjectives, pokemons } from '../../../util/custom-dicc.ts';
 import * as yup from 'yup';
-import { FormikProps, useFormik } from 'formik';
-import { TeamType } from '../../../models/forms/TeamType.tsx';
+import { useFormik } from 'formik';
+import type { FormikProps } from 'formik';
+import type { TeamType } from '../../../models/forms/TeamType.tsx';
 import { PointsContext } from '../../../context';
 import { useNavigate } from 'react-router-dom';
-
 
 const TeamsContainer: FunctionComponent = () => {
   const { teams, initTeams } = useContext(PointsContext);

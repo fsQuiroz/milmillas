@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { createTheme, CssBaseline, Theme, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import type { Theme } from '@mui/material';
 
 const theme: Theme = createTheme({
   palette: {

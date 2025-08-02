@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent, HTMLAttributes, RefObject, SyntheticEvent } from 'react';
+import type { FormEvent, FunctionComponent, HTMLAttributes, RefObject, SyntheticEvent } from 'react';
 import {
   Box,
   Button,
@@ -19,17 +19,16 @@ import {
   Step,
   StepLabel,
   Stepper,
-  SxProps,
   TextField,
-  Theme,
   Tooltip,
   Typography,
 } from '@mui/material';
+import type { SxProps, Theme } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
-import { Team } from '../../../../models/Team.ts';
-import { Points } from '../../../../models/Points.ts';
-import { FormikProps } from 'formik';
-import { PointsType } from '../../../../models/forms/PointsType.ts';
+import type { Team } from '../../../../models/Team.ts';
+import type { Points } from '../../../../models/Points.ts';
+import type { FormikProps } from 'formik';
+import type { PointsType } from '../../../../models/forms/PointsType.ts';
 
 interface Props extends HTMLAttributes<unknown> {
   teams: Team[];

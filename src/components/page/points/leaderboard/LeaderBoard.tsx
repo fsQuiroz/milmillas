@@ -1,6 +1,6 @@
-import { FunctionComponent, HTMLAttributes } from 'react';
+import type { FunctionComponent, HTMLAttributes } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
-import { RankedPoints } from '../../../../models/Points.ts';
+import type { RankedPoints } from '../../../../models/Points.ts';
 import ResultCard from '../../../common/result/ResultCard.tsx';
 
 interface Props extends HTMLAttributes<unknown> {

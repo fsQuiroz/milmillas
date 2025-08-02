@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './routes/AppRouter.tsx';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { PointsContextProvider } from './context';
 
 const App: FunctionComponent = () => {

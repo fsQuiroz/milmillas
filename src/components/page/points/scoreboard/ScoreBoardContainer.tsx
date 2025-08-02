@@ -1,6 +1,7 @@
-import { FunctionComponent, HTMLAttributes, useEffect, useState } from 'react';
-import { Team } from '../../../../models/Team.ts';
-import { Points, TotalPoints } from '../../../../models/Points.ts';
+import { useEffect, useState } from 'react';
+import type { FunctionComponent, HTMLAttributes } from 'react';
+import type { Team } from '../../../../models/Team.ts';
+import type { Points, TotalPoints } from '../../../../models/Points.ts';
 import ScoreBoard from './ScoreBoard.tsx';
 
 interface Props extends HTMLAttributes<unknown> {

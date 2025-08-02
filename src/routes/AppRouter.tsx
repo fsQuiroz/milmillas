@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../components/layout/Layout.tsx';
 import { routes } from './routes.ts';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 
 const AppRouter: FunctionComponent = () => {
   return (

@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import TeamsContainer from '../components/page/teams/TeamsContainer.tsx';
 import Points from '../components/page/points/Points.tsx';
 

@@ -1,4 +1,5 @@
-import { FunctionComponent, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import type { FunctionComponent } from 'react';
 import { Container } from '@mui/material';
 import { PointsContext } from '../../../context';
 import { useNavigate } from 'react-router-dom';
