@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Grid,
-  Hidden,
   Paper,
   Step,
   StepLabel,
@@ -50,7 +49,7 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
                 return (
                   <Step key={idx} {...stepProps}>
                     <StepLabel>
-                      <Hidden mdDown>{`Partida ${idx + 1}`}</Hidden>
+                      <Box sx={{ display: { md: 'block', xs: 'none' } }}>{`Partida ${idx + 1}`}</Box>
                     </StepLabel>
                   </Step>
                 );
@@ -59,7 +58,7 @@ const ScoreBoard: FunctionComponent<Props> = ({ selectedPoints, teams, points, t
           </Box>
           <Box sx={{ px: { sm: 2, md: 4 }, mt: 3, mb: 4 }}>
             <Grid container>
-              <Grid item container m="auto" justifySelf="start">
+              <Grid container m="auto" justifySelf="start">
                 <Box sx={{ m: 'auto' }} />
                 <Button
                   type="button"

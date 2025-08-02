@@ -1,4 +1,4 @@
-import { FormEvent, FunctionComponent, HTMLAttributes, MutableRefObject, SyntheticEvent } from 'react';
+import { FormEvent, FunctionComponent, HTMLAttributes, RefObject, SyntheticEvent } from 'react';
 import {
   Box,
   Button,
@@ -25,7 +25,6 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Mark } from '@mui/base';
 import HelpIcon from '@mui/icons-material/Help';
 import { Team } from '../../../../models/Team.ts';
 import { Points } from '../../../../models/Points.ts';
@@ -37,7 +36,7 @@ interface Props extends HTMLAttributes<unknown> {
   points: Points;
   activeTeam: number;
   isConfirmOpen: boolean;
-  formRef: MutableRefObject<HTMLFormElement | undefined>;
+  formRef: RefObject<HTMLFormElement | null>;
   formik: FormikProps<PointsType>;
   handleFullTrip: (event: SyntheticEvent, checked: boolean) => void;
   handleTk: (event: Event, value: number | number[]) => void;
@@ -55,7 +54,7 @@ const sliderSx: SxProps<Theme> = {
   '& .MuiSlider-mark': { color: (theme) => theme.palette.text.secondary },
 };
 
-const sliderMarks: Mark[] = [
+const sliderMarks = [
   { value: 0, label: '0' },
   { value: 1, label: '1' },
   { value: 2, label: '2' },
@@ -108,7 +107,14 @@ const RoundPoints: FunctionComponent<Props> = ({
       </Box>
       <Box component="form" onSubmit={handleSubmit} onReset={handleReset} sx={{ pt: 2, pb: 1 }} ref={formRef}>
         <Grid container spacing={2}>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            container
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Tooltip
               title="Marcar si se llegó a la distancia final de la jugada (1.000 o 700 millas)"
               placement="right"
@@ -132,7 +138,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Stack direction="row" alignItems="center" sx={{ mr: 2 }}>
               <Tooltip
                 title="Cantidad de millas recorridas en jugada"
@@ -156,7 +168,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               />
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Stack direction="row" alignItems="center">
               <Tooltip
                 title="Cantidad de TKs en la jugada (Si se usó la Carta de Seguridad correspondiente inmediatamente después de su Carta de Problema)"
@@ -185,7 +203,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               />
             </Box>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Stack direction="row" alignItems="center">
               <Tooltip
                 title="Cantidad de Cartas de Seguridades de la partida"
@@ -214,7 +238,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               />
             </Box>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo sin usar Carta de Velocidad de 200"
               placement="right"
@@ -245,7 +275,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo y otro jugador o equipo no pudo utilizar Carta de Velocidad"
               placement="right"
@@ -276,7 +312,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Tooltip
               title="Marcar si este jugador o equipo realizó un Viaje completo y jugó sin Cartas disponibles en el mazo"
               placement="right"
@@ -307,7 +349,13 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Tooltip
               title="Marcar si esta partida era a 700 millas pero este jugador o equipo propuso alargar a 1.000 millas y realizó un Viaje completo"
               placement="right"
@@ -338,7 +386,14 @@ const RoundPoints: FunctionComponent<Props> = ({
               </FormGroup>
             </FormControl>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            container
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Box sx={{ m: 'auto' }} />
             <Button type="button" variant="contained" disabled={activeTeam === 0} onClick={goBack} sx={{ mx: 1 }}>
               Atrás
@@ -347,7 +402,14 @@ const RoundPoints: FunctionComponent<Props> = ({
               Siguiente
             </Button>
           </Grid>
-          <Grid item container xs={12} sm={8} m="auto" justifySelf="start">
+          <Grid
+            container
+            m="auto"
+            justifySelf="start"
+            size={{
+              xs: 12,
+              sm: 8,
+            }}>
             <Button type="reset" variant="contained">
               Reiniciar
             </Button>

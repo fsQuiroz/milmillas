@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext, useState } from 'react';
-import { PointsContext } from '../../../context/PointsContext.tsx';
+import { PointsContext } from '../../../context';
 import NavBar from './NavBar.tsx';
 
 const NavBarContainer: FunctionComponent = () => {

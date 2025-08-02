@@ -5,7 +5,7 @@ import { Team } from '../../../../models/Team.ts';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { PointsType } from '../../../../models/forms/PointsType.ts';
-import { PointsContext } from '../../../../context/PointsContext.tsx';
+import { PointsContext } from '../../../../context';
 
 interface Props extends HTMLAttributes<unknown> {
   teams: Team[];
@@ -27,7 +27,7 @@ const RoundPointsContainer: FunctionComponent<Props> = ({ teams }) => {
   const [activeTeam, setActiveTeam] = useState<number>(0);
   const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
   const { updatePoints } = useContext(PointsContext);
-  const formRef = useRef<HTMLFormElement>();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const validation = yup.object({
     fullTrip: yup.boolean().required(),

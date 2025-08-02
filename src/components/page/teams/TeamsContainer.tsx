@@ -6,7 +6,7 @@ import { adjectives, pokemons } from '../../../util/custom-dicc.ts';
 import * as yup from 'yup';
 import { FormikProps, useFormik } from 'formik';
 import { TeamType } from '../../../models/forms/TeamType.tsx';
-import { PointsContext } from '../../../context/PointsContext.tsx';
+import { PointsContext } from '../../../context';
 import { useNavigate } from 'react-router-dom';
 
 const generateNames = (playersSize: number, formik: FormikProps<TeamType>) => {
@@ -73,7 +73,11 @@ const TeamsContainer: FunctionComponent = () => {
     }
   };
 
-  const init = () => {
+  const resume = () => {
+    navigate('/points');
+  };
+
+  useEffect(() => {
     if (teams.length > 1) {
       teams.forEach((t, idx) => {
         formik.setFieldValue(`team${idx + 1}`, t.name);
@@ -86,13 +90,7 @@ const TeamsContainer: FunctionComponent = () => {
     } else {
       generateNames(playersSize, formik);
     }
-  };
-
-  const resume = () => {
-    navigate('/points');
-  };
-
-  useEffect(init, [playersSize, teams]);
+  }, [playersSize, teams]);
 
   return (
     <Teams

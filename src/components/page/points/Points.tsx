@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext, useEffect } from 'react';
 import { Container } from '@mui/material';
-import { PointsContext } from '../../../context/PointsContext.tsx';
+import { PointsContext } from '../../../context';
 import { useNavigate } from 'react-router-dom';
 import RoundPointsContainer from './roundpoints/RoundPointsContainer.tsx';
 import LeaderBoardContainer from './leaderboard/LeaderBoardContainer.tsx';
