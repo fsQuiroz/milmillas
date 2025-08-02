@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Teams from './Teams.tsx';
 import { Team } from '../../../models/Team.ts';
 import { uniqueNamesGenerator } from 'unique-names-generator';
@@ -9,24 +9,6 @@ import { TeamType } from '../../../models/forms/TeamType.tsx';
 import { PointsContext } from '../../../context';
 import { useNavigate } from 'react-router-dom';
 
-const generateNames = (playersSize: number, formik: FormikProps<TeamType>) => {
-  let newTeams: Team[] = [];
-  for (let i: number = 0; i < playersSize; i++) {
-    const team: Team = {
-      name: uniqueNamesGenerator({
-        dictionaries: [adjectives, pokemons],
-        length: 2,
-        separator: ' ',
-        style: 'capital',
-      }),
-    };
-    newTeams = [...newTeams, team];
-    formik.setFieldValue(`team${i + 1}`, team.name);
-  }
-  if (playersSize < 3) {
-    formik.setFieldValue('team3', 'none');
-  }
-};
 
 const TeamsContainer: FunctionComponent = () => {
   const { teams, initTeams } = useContext(PointsContext);
@@ -67,6 +49,43 @@ const TeamsContainer: FunctionComponent = () => {
     },
   });
 
+  const formikRef = useRef(formik);
+  formikRef.current = formik;
+
+  const setTeamValue = useCallback((teamKey: string, value: string) => {
+    formikRef.current.setFieldValue(teamKey, value);
+  }, []);
+
+  const populateExistingTeams = useCallback(() => {
+    teams.forEach((t, idx) => {
+      setTeamValue(`team${idx + 1}`, t.name);
+    });
+    if (teams.length < 3) {
+      setTeamValue('team3', 'none');
+    }
+    setExistsPrev(true);
+    setPlayersSize(teams.length);
+  }, [teams, setTeamValue]);
+
+  const generateTeamNames = useCallback(() => {
+    let newTeams: Team[] = [];
+    for (let i: number = 0; i < playersSize; i++) {
+      const team: Team = {
+        name: uniqueNamesGenerator({
+          dictionaries: [adjectives, pokemons],
+          length: 2,
+          separator: ' ',
+          style: 'capital',
+        }),
+      };
+      newTeams = [...newTeams, team];
+      setTeamValue(`team${i + 1}`, team.name);
+    }
+    if (playersSize < 3) {
+      setTeamValue('team3', 'none');
+    }
+  }, [playersSize, setTeamValue]);
+
   const resetPlayersSize = (newSize: number) => {
     if (playersSize !== newSize) {
       setPlayersSize(newSize);
@@ -79,18 +98,11 @@ const TeamsContainer: FunctionComponent = () => {
 
   useEffect(() => {
     if (teams.length > 1) {
-      teams.forEach((t, idx) => {
-        formik.setFieldValue(`team${idx + 1}`, t.name);
-      });
-      if (teams.length < 3) {
-        formik.setFieldValue('team3', 'none');
-      }
-      setExistsPrev(true);
-      setPlayersSize(teams.length);
+      populateExistingTeams();
     } else {
-      generateNames(playersSize, formik);
+      generateTeamNames();
     }
-  }, [playersSize, teams]);
+  }, [playersSize, teams, populateExistingTeams, generateTeamNames]);
 
   return (
     <Teams
@@ -98,7 +110,7 @@ const TeamsContainer: FunctionComponent = () => {
       playersSize={playersSize}
       formik={formik}
       resetPlayersSize={resetPlayersSize}
-      generateNames={() => generateNames(playersSize, formik)}
+      generateNames={generateTeamNames}
       resume={resume}
     />
   );
